@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Server Side Example</title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+    <h1>Client Side Example</h1>
+    <button class="btn-primary btn-lg" id="btnLoadBooks">Load books</button>
+    <a href="add.html" class="btn-lg">Add a book</a>
+    <div class="jumbotron" id="output">
+
+    </div>
+</div>
+<script>
+    function CreateTable(data){
+        let table = "";
+        table =
+            '<table class="table table-bordered table-hover"> \n' +
+            '   <thead>\n' +
+            '       <tr>\n' +
+            '           <th scope="col">Name</th> \n'+
+            '           <th scope="col">Author</th> \n'+
+            '           <th scope="col">ISBN</th> \n'+
+            '           <th scope="col">Price</th> \n'+
+            '       </tr>\n' +
+            '   </thead>\n' +
+            '   <tbody>\n';
+
+        for (let book in data){
+            table +=
+                '       <tr>\n' +
+                '           <td>' + data[book]["Name"]+  '</td>\n' +
+                '           <td>' + data[book]["Author"]+  '</td>\n' +
+                '           <td>' + data[book]["ISBN"]+  '</td>\n' +
+                '           <td>' + data[book]["Price"]+  '</td>\n' +
+                '       </tr>\n';
+        }
+
+        table +=
+            '   </tbody>\n' +
+            '</table>\n'
+        return table;
+    }
+    document.getElementById("btnLoadBooks").addEventListener("click", (event) =>{
+        let url = "https://moroney-integration-backend.herokuapp.com/api/books/"
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function(){
+            if (this.readyState == 4 && this.status == 200){
+                document.getElementById("output").innerHTML =
+                    CreateTable(JSON.parse(this.responseText));
+            }
+        };
+        xhttp.open('GET', url, true);
+        xhttp.send();
+    });
+</script>
+</body>
+</html>

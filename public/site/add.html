@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Server Side Example: Add Book</title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+    <h1>Add Book</h1>
+    <div class="container">
+        <form method="POST"
+              action="https://moroney-integration-backend.herokuapp.com/api/books/">
+            <h2>Please provide your book information</h2>
+            <div class="form-group">
+                <label for="Name">Name:</label>
+                <input type="text" name="Name" id="Name" class="form-control"
+                       placeholder="Name">
+            </div>
+            <div class="form-group">
+                <label for="Author">Author:</label>
+                <input type="text" name="Author" id="Author" class="form-control"
+                       placeholder="Author">
+            </div>
+            <div class="form-group">
+                <label for="ISBN">ISBN:</label>
+                <input type="number" name="ISBN" id="ISBN" class="form-control"
+                       placeholder="ISBN">
+            </div>
+            <div class="form-group">
+                <label for="Price">Price:</label>
+                <input type="number" name="Price" id="Price" class="form-control"
+                       placeholder="ISBN">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+
+    </div>
+    <div class="container">
+        <button class="btn btn-lg btn-outline-primary" id="btnAddBook">Add Book</button>
+    </div>
+    <div class="jumbotron" id="output">
+
+    </div>
+</div>
+<script>
+    document.getElementById("btnAddBook").addEventListener("click", (event) =>{
+        let url = "https://moroney-integration-backend.herokuapp.com/api/books/"
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function (){
+            if (this.readyState == 4 && this.status == 200){
+                document.getElementById("output").innerHTML =
+                    "<pre>" + this.responseText + "</pre>";
+            }
+        };
+        // foo=bar&lorem=ipsum
+        let bookData = "Name=" + document.getElementById("Name").value + "&" +
+                         "Author=" + document.getElementById("Author").value  + "&" +
+                         "ISBN="  + document.getElementById("ISBN").value  + "&" +
+                         "Price="  + document.getElementById("Price").value;
+        xhttp.open('POST', url, true);
+        // Just needed to place this line AFTER opening the object
+        xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhttp.send(bookData);
+    });
+</script>
+</body>
+</html>
