@@ -38,9 +38,10 @@
       <change beforePath="$PROJECT_DIR$/public/site/delete.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/site/delete.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/site/get.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/site/get.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/site/homepage.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/site/homepage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/site/search_author.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/site/search_author.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/site/search_isbn.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/site/search_isbn.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/site/search_author.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/site/search.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/site/search_isbn.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/site/update.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/site/update.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/stylesheets/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/stylesheets/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +92,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1606335218650</updated>
-      <workItem from="1606335219846" duration="3297000" />
+      <workItem from="1606335219846" duration="20406000" />
     </task>
     <servers />
   </component>
@@ -110,25 +111,37 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
-    <state width="1638" height="263" key="GridCell.Tab.0.bottom" timestamp="1606340755303">
-      <screen x="0" y="23" width="1680" height="980" />
+    <state x="631" y="288" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1606346144487">
+      <screen x="0" y="23" width="1680" height="981" />
+    </state>
+    <state x="631" y="288" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1680.981@0.23.1680.981" timestamp="1606346144487" />
+    <state width="1638" height="308" key="GridCell.Tab.0.bottom" timestamp="1606377340115">
+      <screen x="0" y="23" width="1680" height="981" />
     </state>
     <state width="1638" height="263" key="GridCell.Tab.0.bottom/0.23.1680.978@0.23.1680.978" timestamp="1606338534384" />
     <state width="1638" height="263" key="GridCell.Tab.0.bottom/0.23.1680.980@0.23.1680.980" timestamp="1606340755303" />
-    <state width="1638" height="263" key="GridCell.Tab.0.center" timestamp="1606340755302">
-      <screen x="0" y="23" width="1680" height="980" />
+    <state width="1638" height="308" key="GridCell.Tab.0.bottom/0.23.1680.981@0.23.1680.981" timestamp="1606377340115" />
+    <state width="1638" height="308" key="GridCell.Tab.0.bottom/0.23.1680.982@0.23.1680.982" timestamp="1606350612067" />
+    <state width="1638" height="308" key="GridCell.Tab.0.center" timestamp="1606377340114">
+      <screen x="0" y="23" width="1680" height="981" />
     </state>
     <state width="1638" height="263" key="GridCell.Tab.0.center/0.23.1680.978@0.23.1680.978" timestamp="1606338534383" />
     <state width="1638" height="263" key="GridCell.Tab.0.center/0.23.1680.980@0.23.1680.980" timestamp="1606340755302" />
-    <state width="1638" height="263" key="GridCell.Tab.0.left" timestamp="1606340755301">
-      <screen x="0" y="23" width="1680" height="980" />
+    <state width="1638" height="308" key="GridCell.Tab.0.center/0.23.1680.981@0.23.1680.981" timestamp="1606377340114" />
+    <state width="1638" height="308" key="GridCell.Tab.0.center/0.23.1680.982@0.23.1680.982" timestamp="1606350612067" />
+    <state width="1638" height="308" key="GridCell.Tab.0.left" timestamp="1606377340114">
+      <screen x="0" y="23" width="1680" height="981" />
     </state>
     <state width="1638" height="263" key="GridCell.Tab.0.left/0.23.1680.978@0.23.1680.978" timestamp="1606338534383" />
     <state width="1638" height="263" key="GridCell.Tab.0.left/0.23.1680.980@0.23.1680.980" timestamp="1606340755301" />
-    <state width="1638" height="263" key="GridCell.Tab.0.right" timestamp="1606340755302">
-      <screen x="0" y="23" width="1680" height="980" />
+    <state width="1638" height="308" key="GridCell.Tab.0.left/0.23.1680.981@0.23.1680.981" timestamp="1606377340114" />
+    <state width="1638" height="308" key="GridCell.Tab.0.left/0.23.1680.982@0.23.1680.982" timestamp="1606350612066" />
+    <state width="1638" height="308" key="GridCell.Tab.0.right" timestamp="1606377340114">
+      <screen x="0" y="23" width="1680" height="981" />
     </state>
     <state width="1638" height="263" key="GridCell.Tab.0.right/0.23.1680.978@0.23.1680.978" timestamp="1606338534383" />
     <state width="1638" height="263" key="GridCell.Tab.0.right/0.23.1680.980@0.23.1680.980" timestamp="1606340755302" />
+    <state width="1638" height="308" key="GridCell.Tab.0.right/0.23.1680.981@0.23.1680.981" timestamp="1606377340114" />
+    <state width="1638" height="308" key="GridCell.Tab.0.right/0.23.1680.982@0.23.1680.982" timestamp="1606350612067" />
   </component>
 </project>

@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Update Books</title>
-    <link rel="stylesheet" href="../stylesheets/indexStyle.css" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Update Book</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -26,15 +27,95 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="add.html">Add Book</a>
-                    <a class="dropdown-item" href="get.html">All Books</a>
-                    <a class="dropdown-item" href="delete.html">Delete Book</a>
-                    <a class="dropdown-item" href="update.html">Update Book Info</a>
-                    <a class="dropdown-item" href="search_author.html">Search by Author</a>
-                    <a class="dropdown-item" href="search_isbn.html">Search by ISBN</a>
+                    <a class="dropdown-item" href="get.html">Show Books</a>
+                    <a class="dropdown-item" href="search.html">Find Book</a>
+                    <a class="dropdown-item" href="delete.html">Remove Book</a>
+                    <a class="dropdown-item" href="update.html">Update Book</a>
                 </div>
             </li>
         </ul>
     </div>
 </nav>
+<h1 style="text-align: center">Update Book</h1>
+<div class="container">
+    <h4>Please provide your book information below</h4>
+    <div class="form-group">
+        <label for="oldISBN">ISBN:</label>
+        <input type="number" name="oldISBN" id="oldISBN" class="form-control"
+               placeholder="ISBN" pattern="978\-\d{10}">
+    </div>
+</div>
+<div class="container">
+    <h4>Please provide your book information below</h4>
+    <div class="form-group">
+        <label for="Name">Name:</label>
+        <input type="text" name="Name" id="Name" class="form-control"
+               placeholder="Name">
+    </div>
+    <div class="form-group">
+        <label for="Author">Author:</label>
+        <input type="text" name="Author" id="Author" class="form-control"
+               placeholder="Author">
+    </div>
+    <div class="form-group">
+        <label for="newISBN">ISBN:</label>
+        <input type="number" name="newISBN" id="newISBN" class="form-control"
+               placeholder="978XXXXXXXXXX" pattern="978\d{10}">
+    </div>
+    <div class="form-group">
+        <label for="Price">Price:</label>
+        <input type="number" name="Price" id="Price" class="form-control"
+               placeholder="10.00" pattern="\d+\.\d\d" step=".01">
+    </div>
+    <div class="jumbotron" id="output">
+
+    </div>
+    <button class="btn-primary btn-lg" id="btnUpdateBook">Add book</button>
+</div>
+<script>
+    document.getElementById("btnUpdateBook").addEventListener("click", (event) =>{
+        let url = "https://moroney-integration-backend.herokuapp.com/api/books/" + document.getElementById("oldISBN").value;
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function (){
+            if (this.readyState == 4 && this.status == 200){
+                document.getElementById("output").innerHTML =
+                    "<pre>" + this.responseText + "</pre>";
+            }
+        };
+        let name = document.getElementById("Name").value;
+        let author = document.getElementById("Author").value
+        let isbn = document.getElementById("newISBN").value
+        let price = document.getElementById("Price").value;
+        if (name !== ""){
+            if (author !== "" || isbn !== "" || price !== "") {
+                name = "Name=" + document.getElementById("Name").value + "&";
+            } else {
+                name = "Name=" + document.getElementById("Name").value;
+            }
+        }
+        if (author !== ""){
+            if (isbn !== "" || price !== "") {
+                author = "Author=" + document.getElementById("Author").value + "&";
+            } else {
+                author = "Author=" + document.getElementById("Author").value;
+            }
+        }
+        if (isbn !== ""){
+            if (isbn !== "" || price !== "") {
+                isbn = "ISBN=" + document.getElementById("ISBN").value + "&";
+            } else {
+                isbn = "ISBN=" + document.getElementById("ISBN").value;
+            }
+        }
+        if (price !== ""){
+            price = "Price=" + document.getElementById("Price").value;
+        }
+        bookData = name + author + isbn + price;
+        xhttp.open('PATCH', url, true);
+        // Just needed to place this line AFTER opening the object
+        xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhttp.send(bookData);
+    });
+</script>
 </body>
 </html>
