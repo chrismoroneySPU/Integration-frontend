@@ -38,9 +38,9 @@
 </nav>
 <h1 style="text-align: center">Add Book</h1>
 <div class="container">
-    <h4>Please provide your book information below</h4>
+    <h4>To add a book, please provide your book information below</h4>
     <div class="form-group">
-        <label for="Name">Name:</label>
+        <label for="Name">Book Name:</label>
         <input type="text" name="Name" id="Name" class="form-control"
                placeholder="Name" required="true">
     </div>
@@ -50,9 +50,9 @@
                placeholder="Author" required="true">
     </div>
     <div class="form-group">
-        <label for="ISBN">ISBN:</label>
+        <label for="ISBN">ISBN (no characters):</label>
         <input type="number" name="ISBN" id="ISBN" class="form-control"
-               placeholder="ISBN" required="true">
+               placeholder="0000000000000" required="true">
     </div>
     <div class="form-group">
         <label for="Price">Price:</label>
@@ -62,30 +62,27 @@
     <div class="jumbotron" id="output">
 
     </div>
-    <button class="btn-primary btn-lg" id="btnAddBook">Add book</button>
+    <button class="btn btn-info btn-lg" id="btnAddBook">Add book</button>
 </div>
 <script>
     document.getElementById("btnAddBook").addEventListener("click", (event) =>{
         let url = "https://moroney-integration-backend.herokuapp.com/api/books/"
         let xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
+            if (this.readyState == 4 && this.status == 200 && document.getElementById("Price").value !== "") {
                 document.getElementById("output").innerHTML = "<pre>" + this.responseText + "</pre>" +
                     "<pre>" + "Successfully added book to catalog!" + "</pre>";
             } else {
-                document.getElementById("output").innerHTML = "<pre>" + this.responseText + "</pre>" +
-                    "<pre>" + "Please fill in all fields" + "</pre>";
+                document.getElementById("output").innerHTML = "<pre>" + "Please fill in all fields." + "</pre>";
             }
         };
         // foo=bar&lorem=ipsum
         let bookData = "Name=" + document.getElementById("Name").value + "&" +
                          "Author=" + document.getElementById("Author").value  + "&" +
-                         "ISBN="  + document.getElementById("ISBN").value  + "&" +
-                         "Price=" + parseFloat(document.getElementById("Price").value).toFixed(2);
+                         "ISBN="  + document.getElementById("ISBN").value  + "&";
         xhttp.open('POST', url, true);
         // Just needed to place this line AFTER opening the object
         xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
         let isbn = document.getElementById("ISBN").value;
         let sum = 0;
         for (let i = 0; i < isbn.length; i++) {
@@ -100,8 +97,11 @@
                 "<pre>" + "Please enter a valid ISBN (any region, no characters). " +
                 "Use the following equation to help with formatting:" + "</pre>" +
                 "<p></p>" +
-                "<pre>" + "(x1 + 3x2 + x3 + 3x4 + x5 + 3x6 + x7 + 3x8 + x9 + 3x10 + x11 + 3x12 + x13) % 10 = 0" + "</pre>";
+                "<pre>" + "(x1 + 3x2 + x3 + 3x4 + x5 + 3x6 + x7 + 3x8 + x9 + 3x10 + x11 + 3x12 + x13) % 10 = 0 (mod 10)" + "</pre>";
+        } else if (document.getElementById("Price").value == ""){
+            document.getElementById("output").innerHTML = "<pre>" + "Please fill in all fields." + "</pre>";
         } else {
+            bookData = bookData + "Price=" + parseFloat(document.getElementById("Price").value).toFixed(2);
             xhttp.send(bookData);
         }
     });

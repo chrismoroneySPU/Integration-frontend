@@ -11,7 +11,8 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -36,17 +37,18 @@
 </nav>
 <h1 style="text-align: center">Find Book</h1>
 <div class="container">
+    <h4>Enter an Author's name or ISBN and click the corresponding search button.</h4>
     <label style="padding-top: 10px" for="Author">Search by Author:</label>
     <div class="input-group">
         <input type="text" name="Author" id="Author" class="form-control"
                placeholder="Author">
-        <button class="btn btn-primary" id="btnLoadBooksAuthor">Search</button>
+        <button class="btn btn-success" id="btnLoadBooksAuthor">Search</button>
     </div>
     <label style="padding-top: 10px" for="ISBN">Search by ISBN:</label>
     <div class="input-group">
         <input type="text" name="ISBN" id="ISBN" class="form-control"
                placeholder="ISBN">
-        <button class="btn btn-primary" id="btnLoadBooksISBN">Search</button>
+        <button class="btn btn-success" id="btnLoadBooksISBN">Search</button>
     </div>
 </div>
 <div style="padding-top: 10px" class="container">
@@ -96,7 +98,6 @@
         };
         xhttp.open("GET", url, true);
         xhttp.send();
-        this.responseText='';
     });
     document.getElementById("btnLoadBooksISBN").addEventListener("click", (event) =>{
         document.getElementById("output").innerHTML = "";
@@ -120,7 +121,6 @@
         };
         xhttp.open("GET", url, true);
         xhttp.send();
-        this.responseText='';
     });
 </script>
 </body>

@@ -36,21 +36,76 @@
         </ul>
     </div>
 </nav>
+<h1 style="text-align: center">Delete Book</h1>
 <div class="container">
-    <h1>Delete Book</h1>
-    <div class="form-group">
-        <label for="ISBN">ISBN:</label>
+    <h6>Search for a book's information by ISBN using the search bar, then click the search button. To delete the book,
+        click the confirm delete button.</h6>
+    <div class="form-group input-group">
         <input type="text" name="ISBN" id="ISBN" class="form-control"
-               placeholder="ISBN">
+               placeholder="0000000000000">
+        <button class="btn btn-success" id="btnFindBook">Search</button>
     </div>
 </div>
 <div class="container">
     <div class="jumbotron" id="output">
 
     </div>
-    <button class="btn-primary btn-lg" id="btnDeleteBook">Delete</button>
+    <button class="btn-danger btn-lg" id="btnDeleteBook">Confirm Delete</button>
 </div>
 <script>
+    function CreateTable(data){
+        let table = "";
+        table =
+            '<table class="table table-bordered table-hover"> \n' +
+            '   <thead>\n' +
+            '       <tr>\n' +
+            '           <th scope="col">Name</th> \n'+
+            '           <th scope="col">Author</th> \n'+
+            '           <th scope="col">ISBN</th> \n'+
+            '           <th scope="col">Price</th> \n'+
+            '       </tr>\n' +
+            '   </thead>\n' +
+            '   <tbody>\n';
+
+        for (let book in data){
+            table +=
+                '       <tr>\n' +
+                '           <td>' + data[book]["Name"]+  '</td>\n' +
+                '           <td>' + data[book]["Author"]+  '</td>\n' +
+                '           <td>' + data[book]["ISBN"]+  '</td>\n' +
+                '           <td>' + data[book]["Price"]+  '</td>\n' +
+                '       </tr>\n';
+        }
+
+        table +=
+            '   </tbody>\n' +
+            '</table>\n'
+        return table;
+    }
+    document.getElementById("btnFindBook").addEventListener("click", (event) =>{
+        document.getElementById("output").innerHTML = "";
+        let url = "https://moroney-integration-backend.herokuapp.com/api/books/" + document.getElementById("ISBN").value;
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function(){
+            if (this.readyState == 4 && this.status == 200){
+                if (document.getElementById("ISBN").value == "") {
+                    document.getElementById("output").innerHTML =
+                        CreateTable(JSON.parse(this.responseText));
+                } else {
+                    let apiResponse = '[' + this.responseText + ']';
+                    document.getElementById("output").innerHTML =
+                        CreateTable(JSON.parse(apiResponse));
+                }
+            } else if (this.status == 404) {
+                document.getElementById("output").innerHTML =
+                    "<pre>" + this.responseText + "</pre>" + "<p></p>" +"<pre>" +
+                    "Please enter in a valid ISBN number" + "</pre>";
+            }
+        };
+        xhttp.open("GET", url, true);
+        xhttp.send();
+        this.responseText = "";
+    });
     document.getElementById("btnDeleteBook").addEventListener("click", (event) =>{
         document.getElementById("output").innerHTML = "";
         let url = "https://moroney-integration-backend.herokuapp.com/api/books/" + document.getElementById("ISBN").value;
@@ -60,9 +115,9 @@
                 document.getElementById("output").innerHTML =
                     "<pre>" + this.responseText + "</pre>" + "<p></p>" +"<pre>" + "Successfully deleted book with ISBN: " +
                     document.getElementById("ISBN").value  + "</pre>";
-            } else if (this.status == 404) {
+            } else if (this.status == 404 || document.getElementById("ISBN").value == "") {
                 document.getElementById("output").innerHTML =
-                    "<pre>" + this.responseText + "</pre>" + "<p></p>" + "<pre>" + "Please input a valid ISBN number." + "</pre>";
+                    "<pre>" + "Please input a valid ISBN number." + "</pre>";
             }
         };
         xhttp.open("DELETE", url, true);
