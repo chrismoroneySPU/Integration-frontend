@@ -40,8 +40,8 @@
 <div class="container">
     <h4>Please provide your book information below</h4>
     <div class="form-group">
-        <label for="oldISBN">ISBN:</label>
-        <input type="number" name="oldISBN" id="oldISBN" class="form-control"
+        <label for="ISBN">ISBN:</label>
+        <input type="number" name="ISBN" id="ISBN" class="form-control"
                placeholder="ISBN" pattern="978\-\d{10}">
     </div>
 </div>
@@ -58,11 +58,6 @@
                placeholder="Author">
     </div>
     <div class="form-group">
-        <label for="newISBN">ISBN:</label>
-        <input type="number" name="newISBN" id="newISBN" class="form-control"
-               placeholder="978XXXXXXXXXX" pattern="978\d{10}">
-    </div>
-    <div class="form-group">
         <label for="Price">Price:</label>
         <input type="number" name="Price" id="Price" class="form-control"
                placeholder="10.00" pattern="\d+\.\d\d" step=".01">
@@ -70,47 +65,53 @@
     <div class="jumbotron" id="output">
 
     </div>
-    <button class="btn-primary btn-lg" id="btnUpdateBook">Add book</button>
+    <button class="btn-primary btn-lg" id="btnUpdateBook">Update book</button>
 </div>
 <script>
     document.getElementById("btnUpdateBook").addEventListener("click", (event) =>{
-        let url = "https://moroney-integration-backend.herokuapp.com/api/books/" + document.getElementById("oldISBN").value;
+        let name = document.getElementById("Name").value;
+        let author = document.getElementById("Author").value;
+        let isbn = document.getElementById("ISBN").value;
+        let price = document.getElementById("Price").value;
+        let url = "https://moroney-integration-backend.herokuapp.com/api/books/" + isbn;
         let xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function (){
             if (this.readyState == 4 && this.status == 200){
-                document.getElementById("output").innerHTML =
-                    "<pre>" + this.responseText + "</pre>";
+                if (name === "" && author === "" && price === ""){
+                    document.getElementById("output").innerHTML =
+                        "<pre>" + "Please fill in at least one field above" + "</pre>";
+                } else {
+                    document.getElementById("output").innerHTML =
+                        "<pre>" + this.responseText + "</pre>" + "<p></p>" +
+                        "<pre>" + "Successfully updated book to the catalog!" + "</pre>";
+                }
+            } else {
+                if (isbn === "") {
+                    document.getElementById("output").innerHTML = "<pre>" + "Please input an ISBN" + "</pre>";
+                } else {
+                    document.getElementById("output").innerHTML = "<pre>" + "Please input a valid ISBN" + "</pre>";
+                }
             }
         };
-        let name = document.getElementById("Name").value;
-        let author = document.getElementById("Author").value
-        let isbn = document.getElementById("newISBN").value
-        let price = document.getElementById("Price").value;
         if (name !== ""){
-            if (author !== "" || isbn !== "" || price !== "") {
+            if (author !== "" || price !== "") {
                 name = "Name=" + document.getElementById("Name").value + "&";
             } else {
                 name = "Name=" + document.getElementById("Name").value;
             }
         }
         if (author !== ""){
-            if (isbn !== "" || price !== "") {
+            if (price !== "") {
                 author = "Author=" + document.getElementById("Author").value + "&";
             } else {
                 author = "Author=" + document.getElementById("Author").value;
             }
         }
-        if (isbn !== ""){
-            if (isbn !== "" || price !== "") {
-                isbn = "ISBN=" + document.getElementById("ISBN").value + "&";
-            } else {
-                isbn = "ISBN=" + document.getElementById("ISBN").value;
-            }
-        }
         if (price !== ""){
-            price = "Price=" + document.getElementById("Price").value;
+            price = "Price=" + parseFloat(document.getElementById("Price").value).toFixed(2);
+            alert(price)
         }
-        bookData = name + author + isbn + price;
+        let bookData = name + author + price;
         xhttp.open('PATCH', url, true);
         // Just needed to place this line AFTER opening the object
         xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
