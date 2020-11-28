@@ -65,9 +65,6 @@
     <button class="btn-primary btn-lg" id="btnAddBook">Add book</button>
 </div>
 <script>
-    function formatNumber(x){
-        return x.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-    }
     document.getElementById("btnAddBook").addEventListener("click", (event) =>{
         let url = "https://moroney-integration-backend.herokuapp.com/api/books/"
         let xhttp = new XMLHttpRequest();
@@ -81,11 +78,10 @@
             }
         };
         // foo=bar&lorem=ipsum
-        let price = formatNumber(parseInt(document.getElementById("Price").value));
         let bookData = "Name=" + document.getElementById("Name").value + "&" +
                          "Author=" + document.getElementById("Author").value  + "&" +
                          "ISBN="  + document.getElementById("ISBN").value  + "&" +
-                         "Price=" + price;
+                         "Price=" + parseFloat(document.getElementById("Price").value).toFixed(2);
         xhttp.open('POST', url, true);
         // Just needed to place this line AFTER opening the object
         xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
